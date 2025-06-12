@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Usuarios</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Função</th>
+                <th>Matricula</th>
+            </tr>
+        </thead>
+        <tbody id="tabela-usuarios"></tbody>
+    </table>
+
+    <script>
+        fetch('listar_usuario.php')
+        .then(res => res.json())
+        .then(usuarios => {
+            const tabela = document.getElementById('tabela-usuarios');
+            usuarios.forEach(p =>{
+                const linha = document.createElement('tr');
+                linha.innerHTML = `
+                    <td>${p.nome}</td>
+                    <td>${p.funcao}</td>
+                    <td>${(p.matricula)}</td>
+                `;
+                tabela.appendChild(linha);
+            });
+        })
+        .catch(err =>{
+            console.error('Erro ao carregar usuarios', err);
+        });
+    </script>
+
+    <a href="cadastro_usuario.html" class="link-basico">Cadastrar usuarios</a>
+</body>
+</html>
